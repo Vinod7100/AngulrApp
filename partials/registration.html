@@ -1,0 +1,33 @@
+<div class="col-xs-12">
+	<div class="col-xs-6 no-padding">
+		<button class="btn btn-default" ng-click="showPage('/home')">Home</button>
+	</div>
+	<div class="col-xs-6">
+		<button class="btn btn-default pull-right" ng-click="showPage('/login')">Login</button>
+	</div>
+	<div class="clearfix" style="height:30px; display:block; clear:both; width:100%"></div>
+	<div class="col-xs-12">
+		<form class="form" ng-submit="submit()">
+			<div class="form-group">
+				<input type="text" class="form-control" name="name" ng-model="name" placeholder="Enter Name" required/>
+			</div>
+			<div class="form-group">
+				<input type="email" class="form-control" name="email" ng-model="email" placeholder="Enter email" required/>
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" name="password" ng-model="password" placeholder="Enter Password" required/>
+			</div>
+			<div class="form-group">
+				<input type="submit" name="submit" class="btn btn-default" value="Register"/>
+			</div>
+		</form>
+		<div class="clearfix"></div>
+		<!--{{userDetails}}-->
+		<div ng-if="userDetails.error == 'true'" class="alert alert-danger">
+			{{userDetails.message}}
+		</div>
+		<div ng-if="userDetails.success == 'true'" class="alert alert-success">
+			{{userDetails.message}}
+		</div>
+	</div>
+</div>
