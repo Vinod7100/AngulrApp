@@ -9,10 +9,12 @@ body *{
 .page{
 	min-height:100vh;
 	padding-top:15px;
+	padding-left:0px;
+	padding-right:0px;
 }
 .page-header{
 	margin:-15px -15px 15px -15px;
-	padding:10px 30px;
+	padding:10px 15px;
 	background:rgba(0,0,0,0.5);
 	color:#fff;
 }
@@ -24,12 +26,12 @@ body *{
 }
 .page-header .btn-pull-right{
 	position:absolute;
-	right:30px;
+	right:15px;
 	top:10px;
 }
 .page-header .btn-pull-left{
 	position:absolute;
-	left:30px;
+	left:15px;
 	top:10px;
 }
 .phones {
