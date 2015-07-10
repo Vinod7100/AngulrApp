@@ -4,13 +4,6 @@
 		<a href="" ng-click="showPage('/home')" class="btn-pull-left"><i class="fa fa-arrow-circle-left"></i></a>
 		<h3 style="margin:0px; text-align:center">Contact Us</h3>
 	</div>
-	<!--<div class="col-xs-6 no-padding">
-		<button class="btn btn-default" ng-click="showPage('/home')">Home</button>
-	</div>
-	<div class="col-xs-6">
-		<button class="btn btn-default pull-right" ng-click="showPage('/registration')">Registration</button>
-	</div>
-	<div class="clearfix" style="height:30px; display:block; clear:both; width:100%"></div>-->
 	<div class="col-xs-12">
 		<form class="form" ng-submit="submit()">
 			<div class="form-group">
@@ -26,7 +19,7 @@
 				<input type="text" class="form-control" name="subject" ng-model="subject" placeholder="Enter Subject" required/>
 			</div>
 			<div class="form-group">
-				<textarea class="form-control" name="message" ng-model="message" rows="6"/></textarea>
+				<textarea class="form-control" name="message" ng-model="message" rows="6" placeholder="Enter Message"/></textarea>
 			</div>
 			<div class="form-group">
 				<input type="submit" class="btn btn-default submit-btn" name="submit" value="Send"/>
