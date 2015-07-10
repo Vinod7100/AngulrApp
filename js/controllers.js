@@ -42,8 +42,11 @@ phonecatControllers.controller('loginPageCtrl', ['$scope', '$http', '$location',
 	$scope.password = "";
 	
 	$scope.submit = function() {
+		$scope.loading = true;
+		
 		$http.get('http://parssv.com/sensemedia/app/?action=login&email='+ $scope.username +'&password='+ $scope.password).success(function(data) {
 			$scope.userDetails = data;
+			$scope.loading = false;
 			if($scope.userDetails.status == 'verified'){
 				var pathurl = "/profile";
 				console.log(pathurl);

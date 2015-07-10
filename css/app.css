@@ -1,12 +1,37 @@
 /* app css stylesheet */
 
 body {
-  padding-top: 20px;
+  
 }
 body *{
 	font-family:'century gothic';
 }
-
+.page{
+	min-height:100vh;
+	padding-top:15px;
+}
+.page-header{
+	margin:-15px -15px 15px -15px;
+	padding:10px 30px;
+	background:rgba(0,0,0,0.5);
+	color:#fff;
+}
+.page-header a i{
+	background:none;
+	border:none;
+	color:#fff;
+	font-size:30px;
+}
+.page-header .btn-pull-right{
+	position:absolute;
+	right:30px;
+	top:10px;
+}
+.page-header .btn-pull-left{
+	position:absolute;
+	left:30px;
+	top:10px;
+}
 .phones {
   list-style: none;
 }
@@ -27,4 +52,39 @@ body *{
 
 p{
 	text-align:justify;
+}
+.transparent{
+	background:rgba(0,0,0,0.5);
+	color:#fff;
+}
+.transparent i{
+	font-size:45px;
+}
+.transparent span{
+	font-size:25px;
+}
+button.transparent{
+	min-width:100%;
+	max-width:100%;
+	overflow:hidden;
+	text-align:center;
+}
+.form-control{
+	border-radius:0px;
+}
+input[type="text"], input[type="email"]{
+	padding-left:30px;
+}
+.form-group span{
+	background: rgba(0,0,0,0.5);
+  position: absolute;
+  color: #fff;
+  width: 30px;
+  text-align: center;
+  height: 33px;
+  display: table;
+}
+.form-group span i{
+	display:table-cell;
+	vertical-align:middle;
 }
