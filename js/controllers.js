@@ -178,3 +178,20 @@ phonecatControllers.controller('profilePageCtrl', ['$scope', '$http', '$location
 	}
 	
 }]);
+
+/****** Privacy Page controller *****/
+phonecatControllers.controller('privacyPageCtrl', ['$scope', '$http', '$location',
+  function($scope, $http, $location) {
+	  
+	$scope.showPage = function(pathurl){
+		console.log(pathurl);
+		$location.path(pathurl)
+	}
+
+	$http.get('http://parssv.com/sensemedia/app/?action=get_privacyPage_content').success(function(data) {
+		$scope.content = data;
+		if($scope.content.success == "true"){
+			$scope.pageContent = $scope.content.message;
+		}
+	});
+}]);

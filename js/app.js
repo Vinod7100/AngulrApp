@@ -43,6 +43,10 @@ phonecatApp.config(['$routeProvider',
         templateUrl: 'partials/profile.html',
         controller: 'profilePageCtrl'
       }).
+	  when('/privacy', {
+        templateUrl: 'partials/privacy.html',
+        controller: 'privacyPageCtrl'
+      }).
       otherwise({
         redirectTo: '/home'
       });
