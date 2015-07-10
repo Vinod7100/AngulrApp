@@ -72,8 +72,20 @@ button.transparent{
 .form-control{
 	border-radius:0px;
 }
-input[type="text"], input[type="email"]{
-	padding-left:30px;
+input[type="text"], input[type="email"], input[type="password"]{
+	padding-left:35px;
+}
+.submit-btn{
+	width: 100%;
+	background: rgba(0,0,0,0.5);
+	color: #fff;
+	border-color: rgba(0,0,0,0.3);
+	border-radius: 0px;
+}
+.submit-btn:hover, .submit-btn:focus{
+	background: rgba(0,0,0,0.8);
+	color: #fff;
+	border-color: rgba(0,0,0,0.3);
 }
 .form-group span{
 	background: rgba(0,0,0,0.5);
@@ -87,4 +99,18 @@ input[type="text"], input[type="email"]{
 .form-group span i{
 	display:table-cell;
 	vertical-align:middle;
+}
+.no-padding{
+	padding:0px;
+}
+.form-below-btn{
+	color:#000;
+	font-size:14px;
+}
+.form-below-btn:hover{
+	color:#fff;
+	text-decoration:none;
+}
+.border-right{
+	border-right:solid 1px #000;
 }

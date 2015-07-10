@@ -70,8 +70,10 @@ phonecatControllers.controller('registrationPageCtrl', ['$scope', '$http', '$loc
 	$scope.password = "";
 	
 	$scope.submit = function() {
+		$scope.loading = true;
 		$http.get('http://parssv.com/sensemedia/app/?action=register&name='+ $scope.name +'&email='+ $scope.email +'&password='+$scope.password).success(function(data) {
 			$scope.userDetails = data;
+			$scope.loading = false;
 		});
 	};
 }]);
