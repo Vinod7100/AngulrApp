@@ -30,8 +30,8 @@
 		<div ng-if="userDetails.error == 'true'" class="alert alert-danger">
 			{{userDetails.message}}
 		</div>
-		<ul ng-if="userDetails.error != 'true'">
-			<li ng-repeat="i in userDetails">{{i}}</li>
-		</ul>
+		<div ng-if="userDetails.success == 'true'" class="alert alert-success">
+			{{userDetails.message}}
+		</div>
 	</div>
 </div>
