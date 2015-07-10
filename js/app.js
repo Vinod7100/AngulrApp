@@ -39,6 +39,10 @@ phonecatApp.config(['$routeProvider',
         templateUrl: 'partials/contact.html',
         controller: 'contactPageCtrl'
       }).
+	  when('/profile', {
+        templateUrl: 'partials/profile.html',
+        controller: 'profilePageCtrl'
+      }).
       otherwise({
         redirectTo: '/home'
       });

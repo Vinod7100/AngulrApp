@@ -27,6 +27,11 @@ phonecatControllers.controller('homePageCtrl', ['$scope', '$http', '$location',
 		console.log(pathurl);
 		$location.path(pathurl)
 	}
+	
+	$scope.openProfile = function(pathurl){
+		console.log(pathurl);
+		$location.path(pathurl)
+	}
 }]);
 
 /****** Login Page controller *****/
@@ -161,4 +166,15 @@ phonecatControllers.controller('contactPageCtrl', ['$scope', '$http', '$location
 			$scope.message = "";
 		});
 	};
+}]);
+
+/****** Profile Page controller *****/
+phonecatControllers.controller('profilePageCtrl', ['$scope', '$http', '$location',
+  function($scope, $http, $location) {
+	
+	$scope.showPage = function(pathurl){
+		console.log(pathurl);
+		$location.path(pathurl)
+	}
+	
 }]);
