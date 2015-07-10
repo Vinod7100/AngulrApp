@@ -22,10 +22,15 @@
 				<input type="text" class="form-control" name="password" ng-model="password" placeholder="Enter Password" required/>
 			</div>
 			<div class="form-group">
-				<input type="submit" class="btn btn-default" name="submit" value="Login"/>
-				<a class="btn btn-default pull-right" ng-click="showPage('/forgotPassword')">Forgot?</a>
+				<input type="submit" class="btn btn-default submit-btn" name="submit" value="Login"/>
 			</div>
 		</form>
+		<div class="col-xs-6 no-padding border-right">
+			<a href="" class="pull-left form-below-btn" ng-click="showPage('/forgotPassword')">Forgot<span style="font-family:arial">?</span></a>
+		</div>
+		<div class="col-xs-6 no-padding">
+			<a href="" class="pull-right form-below-btn" ng-click="showPage('/registration')">New User<span style="font-family:arial">?</span></a>
+		</div>
 		<!--{{userDetails}}-->
 		<div ng-if="userDetails.error == 'true'" class="alert alert-danger">
 			{{userDetails.message}}
