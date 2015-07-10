@@ -154,6 +154,11 @@ phonecatControllers.controller('contactPageCtrl', ['$scope', '$http', '$location
 		$http.get('http://parssv.com/sensemedia/app/?action=contact_submit&name='+ $scope.name +'&email='+ $scope.email +'&subject='+ $scope.subject +'&message='+ $scope.message).success(function(data) {
 			$scope.userDetails = data;
 			$scope.loading = false;
+			// empty all varibales
+			$scope.name = "";
+			$scope.email = "";
+			$scope.subject = "";
+			$scope.message = "";
 		});
 	};
 }]);
