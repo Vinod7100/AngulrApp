@@ -124,11 +124,36 @@ phonecatControllers.controller('forgotPasswordPageCtrl', ['$scope', '$http', '$l
 	}
 	
 	$scope.email = "";
-	
+
 	$scope.submit = function() {
+		$scope.loading = true;
 		$http.get('http://parssv.com/sensemedia/app/?action=recover&email='+ $scope.email).success(function(data) {
 			$scope.userDetails = data;
+			$scope.loading = false;
 		});
 	};
 	
+}]);
+
+/****** Contact Page controller *****/
+phonecatControllers.controller('contactPageCtrl', ['$scope', '$http', '$location',
+  function($scope, $http, $location) {
+	  
+	$scope.showPage = function(pathurl){
+		console.log(pathurl);
+		$location.path(pathurl)
+	}
+	
+	$scope.name = "";
+	$scope.email = "";
+	$scope.subject = "";
+	$scope.message = "";
+	
+	$scope.submit = function() {
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/?action=contact_submit&name='+ $scope.name +'&email='+ $scope.email +'&subject='+ $scope.subject +'&message='+ $scope.message).success(function(data) {
+			$scope.userDetails = data;
+			$scope.loading = false;
+		});
+	};
 }]);

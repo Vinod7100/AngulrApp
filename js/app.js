@@ -35,6 +35,10 @@ phonecatApp.config(['$routeProvider',
         templateUrl: 'partials/forgot.html',
         controller: 'forgotPasswordPageCtrl'
       }).
+	  when('/contact', {
+        templateUrl: 'partials/contact.html',
+        controller: 'contactPageCtrl'
+      }).
       otherwise({
         redirectTo: '/home'
       });
