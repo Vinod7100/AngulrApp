@@ -72,7 +72,7 @@ button.transparent{
 .form-control{
 	border-radius:0px;
 }
-input[type="text"], input[type="email"]{
+input[type="text"], input[type="email"], input[type="password"]{
 	padding-left:30px;
 }
 .form-group span{
