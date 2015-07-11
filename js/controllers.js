@@ -202,8 +202,40 @@ phonecatControllers.controller('contactPageCtrl', ['$scope', '$http', '$location
 phonecatControllers.controller('profilePageCtrl', ['$scope', '$http', '$location',
   function($scope, $http, $location) {
 	
+	if (1 == 1) {
+		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
+		$scope.xxDealsPassword = localStorage.getItem("xxDealsPassword");
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/?action=login&email='+ $scope.xxDealsUsername +'&password='+ $scope.xxDealsPassword).success(function(data) {
+			$scope.userData = data;
+			$scope.loading = false;
+			if($scope.userData.status == 'verified'){
+				$scope.name = $scope.userData.name;
+				$scope.location = $scope.userData.location;
+				$scope.newsletter = $scope.userData.newsletter;
+				$scope.userID = $scope.userData.id;
+			}
+			else{
+				var pathurl = "/login";
+				console.log(pathurl);
+				$scope.loading = false;
+				$location.path(pathurl);
+			}
+		});
+	}
+	
 	$scope.showPage = function(pathurl){
 		console.log(pathurl);
+		$location.path(pathurl)
+	}
+	
+	$scope.logout = function(){
+		$scope.loading = true;
+		// unset localstorage username and password variables
+		localStorage.setItem("xxDealsUsername", "");
+		localStorage.setItem("xxDealsPassword", "");
+		var pathurl = "/home";
+		$scope.loading = false;
 		$location.path(pathurl)
 	}
 	
@@ -257,7 +289,7 @@ phonecatControllers.controller('settingsPageCtrl', ['$scope', '$http', '$locatio
 		$location.path(pathurl)
 	}
 	
-	if (localStorage.getItem("xxDealsUsername") !== "") {
+	if (1 == 1) {
 		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
 		$scope.xxDealsPassword = localStorage.getItem("xxDealsPassword");
 		$scope.loading = true;
