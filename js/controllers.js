@@ -100,6 +100,21 @@ phonecatControllers.controller('registrationPageCtrl', ['$scope', '$http', '$loc
 		$location.path(pathurl)
 	}
 	
+	if (localStorage.getItem("xxDealsUsername") !== "") {
+		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
+		$scope.xxDealsPassword = localStorage.getItem("xxDealsPassword");
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/?action=login&email='+ $scope.xxDealsUsername +'&password='+ $scope.xxDealsPassword).success(function(data) {
+			$scope.userData = data;
+			$scope.loading = false;
+			if($scope.userData.status == 'verified'){
+				var pathurl = "/profile";
+				console.log(pathurl);
+				$location.path(pathurl);
+			}
+		});
+	}
+	
 	$scope.name = "";
 	$scope.email = "";
 	$scope.password = "";
@@ -330,7 +345,7 @@ phonecatControllers.controller('changePasswordPageCtrl', ['$scope', '$http', '$l
 		$location.path(pathurl)
 	}
 	
-	if (localStorage.getItem("xxDealsUsername") !== "") {
+	if (1 == 1) { // checking username and Password if already in localstoarge
 		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
 		$scope.xxDealsPassword = localStorage.getItem("xxDealsPassword");
 		$scope.loading = true;
@@ -354,6 +369,11 @@ phonecatControllers.controller('changePasswordPageCtrl', ['$scope', '$http', '$l
 		$http.get('http://parssv.com/sensemedia/app/?action=changePassword&currentPassword='+ $scope.currentPassword +'&newPassword='+ $scope.newPassword +'&confirmPassword='+$scope.confirmPassword +'&userID='+$scope.userID).success(function(data) {
 			$scope.userDetails = data;
 			$scope.loading = false;
+			if($scope.userDetails.success == "true"){ //if password changed reset the form
+				$scope.currentPassword = "";
+				$scope.newPassword = "";
+				$scope.confirmPassword = "";
+			}
 		});
 	};
 }]);
