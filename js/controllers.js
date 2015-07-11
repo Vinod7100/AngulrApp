@@ -100,7 +100,7 @@ phonecatControllers.controller('registrationPageCtrl', ['$scope', '$http', '$loc
 		$location.path(pathurl)
 	}
 	
-	if (localStorage.getItem("xxDealsUsername") !== "") {
+	if (1 == 1) { // checking username and Password if already in localstoarge
 		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
 		$scope.xxDealsPassword = localStorage.getItem("xxDealsPassword");
 		$scope.loading = true;
@@ -108,8 +108,10 @@ phonecatControllers.controller('registrationPageCtrl', ['$scope', '$http', '$loc
 			$scope.userData = data;
 			$scope.loading = false;
 			if($scope.userData.status == 'verified'){
+				$scope.userID = $scope.userData.id;
 				var pathurl = "/profile";
 				console.log(pathurl);
+				$scope.loading = false;
 				$location.path(pathurl);
 			}
 		});
