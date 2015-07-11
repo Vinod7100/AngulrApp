@@ -19,7 +19,7 @@
 			</div>
 			<div class="form-group">
 				<span><i class="fa fa-key"></i></span>
-				<input type="text" class="form-control" name="password" ng-model="password" placeholder="Enter Password" required/>
+				<input type="password" class="form-control" name="password" ng-model="password" placeholder="Enter Password" required/>
 			</div>
 			<div class="form-group">
 				<input type="submit" class="btn btn-default submit-btn" name="submit" value="Login"/>
@@ -31,13 +31,15 @@
 		<div class="col-xs-6 no-padding">
 			<a href="" class="pull-right form-below-btn" ng-click="showPage('/registration')">New User<span style="font-family:arial">?</span></a>
 		</div>
-		<div class="clearfix"></div>
+		<div class="clearfix">
+			<!--{{xxDealsUsername}}-->
+		</div>
 		<!--{{userDetails}}-->
 		<div ng-if="userDetails.error == 'true'" class="alert alert-danger">
 			{{userDetails.message}}
 		</div>
-		<ul ng-if="userDetails.error != 'true'">
+		<!--<ul ng-if="userDetails.error != 'true'">
 			<li ng-repeat="i in userDetails">{{i}}</li>
-		</ul>
+		</ul>--->
 	</div>
 </div>

@@ -47,6 +47,26 @@ phonecatApp.config(['$routeProvider',
         templateUrl: 'partials/privacy.html',
         controller: 'privacyPageCtrl'
       }).
+	  when('/offers', {
+        templateUrl: 'partials/offers.html',
+        controller: 'offersPageCtrl'
+      }).
+	  when('/settings', {
+        templateUrl: 'partials/settings.html',
+        controller: 'settingsPageCtrl'
+      }).
+	  when('/addNewItem', {
+        templateUrl: 'partials/addNewItem.html',
+        controller: 'addNewItemPageCtrl'
+      }).
+	  when('/changePassword', {
+        templateUrl: 'partials/changePassword.html',
+        controller: 'changePasswordPageCtrl'
+      }).
+	  when('/list', {
+        templateUrl: 'partials/list.html',
+        controller: 'listPageCtrl'
+      }).
       otherwise({
         redirectTo: '/home'
       });
