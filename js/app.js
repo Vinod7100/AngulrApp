@@ -67,6 +67,22 @@ phonecatApp.config(['$routeProvider',
         templateUrl: 'partials/list.html',
         controller: 'listPageCtrl'
       }).
+	  when('/selling', {
+        templateUrl: 'partials/selling.html',
+        controller: 'sellingPageCtrl'
+      }).
+	  when('/buying', {
+        templateUrl: 'partials/buying.html',
+        controller: 'buyingPageCtrl'
+      }).
+	  when('/watching', {
+        templateUrl: 'partials/watching.html',
+        controller: 'watchingPageCtrl'
+      }).
+	  when('/show_single_item', {
+        templateUrl: 'partials/show_single_item.html',
+		controller: 'showPageCtrl'
+      }).
       otherwise({
         redirectTo: '/home'
       });

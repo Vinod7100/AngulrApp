@@ -283,7 +283,12 @@ phonecatControllers.controller('addNewItemPageCtrl', ['$scope', '$http', '$locat
 		console.log(pathurl);
 		$location.path(pathurl)
 	}
-
+	
+	$scope.loading = true;
+	$http.get('http://parssv.com/sensemedia/app/?action=list_categories').success(function(data) {
+		$scope.category = data;
+		$scope.loading = false;
+	});
 }]);
 
 /****** Offers Page controller *****/
@@ -317,7 +322,7 @@ phonecatControllers.controller('settingsPageCtrl', ['$scope', '$http', '$locatio
 				$scope.name = $scope.userData.name;
 				$scope.location = $scope.userData.location;
 				$scope.newsletter = $scope.userData.newsletter;
-				$scope.userID = $scope.userData.id;
+				$scope.user_id = $scope.userData.id;
 			}
 			else{
 				var pathurl = "/login";
@@ -329,8 +334,12 @@ phonecatControllers.controller('settingsPageCtrl', ['$scope', '$http', '$locatio
 	}
 	
 	$scope.submit = function() {
+		console.log($scope.name);
+		console.log($scope.location);
+		console.log($scope.newsletter);
+		console.log($scope.user_id);
 		$scope.loading = true;
-		$http.get('http://parssv.com/sensemedia/app/?action=updateSettings&name='+ $scope.name +'&location='+ $scope.location +'&newsletter='+$scope.newsletter +'&userID='+$scope.userID).success(function(data) {
+		$http.get('http://parssv.com/sensemedia/app/?action=update_settings&name='+ $scope.name +'&location='+ $scope.location +'&newsletter='+$scope.newsletter +'&user_id='+$scope.user_id).success(function(data) {
 			$scope.userDetails = data;
 			$scope.loading = false;
 		});
@@ -395,4 +404,161 @@ phonecatControllers.controller('listPageCtrl', ['$scope', '$http', '$location',
 		$scope.items = data;
 		$scope.loading = false;
 	});
+	
+	$http.get('http://parssv.com/sensemedia/app/?action=list_categories').success(function(data) {
+		$scope.category = data;
+		$scope.loading = false;
+	});
+	
+	$scope.showItem = function(item_id) {
+		var pathurl = "/show_single_item";
+		console.log(pathurl);
+		$location.path(pathurl).search('id', item_id);
+		
+		
+	};
 }]);
+
+/****** Show Single Item Page controller *****/
+phonecatControllers.controller('showPageCtrl', ['$scope', '$http', '$location','$routeParams',
+  function($scope, $http, $location, $routeParams) {
+	  $scope.item_id = $routeParams.id;
+	  console.log($scope.item_id);
+	 
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/?action=item_details&item_id='+ $scope.item_id).success(function(data) {
+			$scope.itemDetails = data;
+			$scope.loading = false;
+		});
+	
+}]);
+/****** Selling Page controller *****/
+phonecatControllers.controller('sellingPageCtrl', ['$scope', '$http', '$location',
+  function($scope, $http, $location) {
+	  
+	$scope.showPage = function(pathurl){
+		console.log(pathurl);
+		$location.path(pathurl)
+	}
+	$scope.limit = "10";
+	
+	if (1 == 1) { // checking username and Password if already in localstoarge
+		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
+		$scope.xxDealsPassword = localStorage.getItem("xxDealsPassword");
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/?action=login&email='+ $scope.xxDealsUsername +'&password='+ $scope.xxDealsPassword).success(function(data) {
+			$scope.userData = data;
+			$scope.loading = false;
+			if($scope.userData.status == 'verified'){
+				$scope.userID = $scope.userData.id;
+				console.log($scope.userID);
+				$scope.submit();
+			}
+			else{
+				var pathurl = "/login";
+				console.log(pathurl);
+				//$scope.loading = false;
+				$location.path(pathurl);
+			}
+		});
+	};
+	$scope.submit = function(){
+	$scope.loading = true;
+	$http.get('http://parssv.com/sensemedia/app/?action=user_selling&user_id='+ $scope.userID +'&limit='+ $scope.limit + '&page=0').success(function(data) {
+		$scope.selling = data;
+		$scope.loading = false;
+	});
+	}
+	
+	$scope.del = function(item_id) {
+		confirm("Do You Really Want to Delete This Item!");
+		$scope.item_id = item_id;
+		console.log($scope.item_id);
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/?action=delete_item&item_id='+ $scope.item_id).success(function(data) {
+			$scope.userDetails = data;
+			$scope.loading = false;
+			window.location.reload();
+		});
+	};
+}]);
+
+/****** Buying Page controller *****/
+phonecatControllers.controller('buyingPageCtrl', ['$scope', '$http', '$location',
+  function($scope, $http, $location) {
+	  
+	$scope.showPage = function(pathurl){
+		console.log(pathurl);
+		$location.path(pathurl)
+	}
+	
+	$scope.limit = "10";
+	
+	if (1 == 1) { // checking username and Password if already in localstoarge
+		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
+		$scope.xxDealsPassword = localStorage.getItem("xxDealsPassword");
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/?action=login&email='+ $scope.xxDealsUsername +'&password='+ $scope.xxDealsPassword).success(function(data) {
+			$scope.userData = data;
+			$scope.loading = false;
+			if($scope.userData.status == 'verified'){
+				$scope.userID = $scope.userData.id;
+				console.log($scope.userID);
+				$scope.submit();
+			}
+			else{
+				var pathurl = "/login";
+				console.log(pathurl);
+				//$scope.loading = false;
+				$location.path(pathurl);
+			}
+		});
+	};
+	$scope.submit = function(){
+	$scope.loading = true;
+	$http.get('http://parssv.com/sensemedia/app/?action=user_buying&user_id='+ $scope.userID +'&limit='+ $scope.limit + '&page=0').success(function(data) {
+		$scope.buying = data;
+		$scope.loading = false;
+	});
+	}
+}]);
+
+/****** Watching Page controller *****/
+phonecatControllers.controller('watchingPageCtrl', ['$scope', '$http', '$location',
+  function($scope, $http, $location) {
+	  
+	$scope.showPage = function(pathurl){
+		console.log(pathurl);
+		$location.path(pathurl)
+	}
+	$scope.limit = "10";
+	
+	if (1 == 1) { // checking username and Password if already in localstoarge
+		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
+		$scope.xxDealsPassword = localStorage.getItem("xxDealsPassword");
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/?action=login&email='+ $scope.xxDealsUsername +'&password='+ $scope.xxDealsPassword).success(function(data) {
+			$scope.userData = data;
+			$scope.loading = false;
+			if($scope.userData.status == 'verified'){
+				$scope.userID = $scope.userData.id;
+				console.log($scope.userID);
+				$scope.submit();
+			}
+			else{
+				var pathurl = "/login";
+				console.log(pathurl);
+				//$scope.loading = false;
+				$location.path(pathurl);
+			}
+		});
+	};
+	$scope.submit = function(){
+	$scope.loading = true;
+	$http.get('http://parssv.com/sensemedia/app/?action=user_watching&user_id='+ $scope.userID +'&limit='+ $scope.limit + '&page=0').success(function(data) {
+		$scope.watching = data;
+		$scope.loading = false;
+	});
+	}
+}]);
+

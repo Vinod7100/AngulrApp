@@ -2,9 +2,36 @@
 	<div class="page-header">
 		<a href="" ng-click="showPage('/profile')" class="btn-pull-left"><i class="fa fa-arrow-circle-left"></i></a>
 		<h3 style="margin:0px; text-align:center">Add New Item</h3>
+		<a href="" ng-click="showPage('/home')" class="btn-pull-right"><i class="fa fa-home"></i></a>
 	</div>
 	<div class="col-xs-12">
-		
+		<form class="form" ng-submit="submit()">
+			<div class="form-group">
+				<span><i>C</i></span>
+				<select class="form-control">
+					<option disabled="disabled">Select Category</option>
+					<option ng-repeat="c in category" value="{{c.id}}">{{c.name}}</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<span><i>H</i></span>
+				<input type="text" class="form-control" name="heading" ng-model="heading" placeholder="Enter Heading" required/>
+				
+			</div>
+			 <div class="form-group">
+				<textarea class="form-control" name="desc" ng-model="desc" rows="6" placeholder="Enter your text here..."></textarea>
+			</div>
+			<div class="form-group">
+				<span><i class="fa fa-usd"></i></span>
+				<input type="text" class="form-control" name="price" ng-model="price" placeholder="Enter Price" required/>
+			</div>
+			<div class="form-group">
+				<input type="file" class="form-control" name="price" ng-model="price" placeholder="Enter Price" required/>
+			</div>
+			<div class="form-group">
+				<input type="submit" class="btn btn-default submit-btn" name="submit" value="Save Changes"/>
+			</div>
+		</form>
 	</div>
 	
 </div>

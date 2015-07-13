@@ -1,10 +1,28 @@
 <div class="col-xs-12 page" style="background:#ffcc00">
 	<div class="page-header">
 		<a href="" ng-click="showPage('/profile')" class="btn-pull-left"><i class="fa fa-arrow-circle-left"></i></a>
-		<h3 style="margin:0px; text-align:center">Offers</h3>
+		<h3 style="margin:0px; text-align:center">My Offers</h3>
+		<a href="" ng-click="showPage('/home')" class="btn-pull-right"><i class="fa fa-home"></i></a>
 	</div>
 	<div class="col-xs-12">
-		
+		<div class="col-xs-12">
+			<button class="btn btn-default transparent" ng-click="showPage('/selling')">
+				<i class="fa fa-money"></i>
+				<br/><span>Selling</span>
+			</button>
+		</div>
+		<div class="col-xs-12" style="margin-top:20px">
+			<button class="btn btn-default pull-right transparent" ng-click="showPage('/buying')">
+				<i class="fa fa-shopping-cart"></i>
+				<br/><span>Buying</span>
+			</button>
+		</div>
+		<div class="col-xs-12" style="margin-top:20px">
+			<button class="btn btn-default pull-right transparent" ng-click="showPage('/watching')">
+				<i class="fa fa-eye"></i>
+				<br/><span>Watching</span>
+			</button>
+		</div>
 	</div>
 	
 </div>

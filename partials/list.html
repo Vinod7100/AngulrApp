@@ -1,18 +1,24 @@
 <div class="col-xs-12 page" style="background:#ffcc00">
 	<loading></loading>
 	<div class="page-header">
-		<a href="" ng-click="showPage('/profile')" class="btn-pull-left"><i class="fa fa-arrow-circle-left"></i></a>
+		<a href="" ng-click="showPage('/home')" class="btn-pull-left"><i class="fa fa-arrow-circle-left"></i></a>
 		<h3 style="margin:0px; text-align:center">List</h3>
 	</div>
+	<div class="col-xs-12" style="margin-bottom:15px">
+		<select class="form-control">
+			<option disabled="disabled">Select Category</option>
+			<option ng-repeat="c in category" value="{{c.id}}">{{c.name}}</option>
+		</select>
+	</div>
 	<div class="col-xs-12">
-		<div class="col-xs-12 item thumbnail" ng-repeat="item in items" style="margin-bottom:20px; border:solid 1px #666">
+		<div class="col-xs-12 item thumbnail" ng-repeat="item in items" ng-click="showItem(item.id)">
 			<div class="">
-				<img src="{{item.thumbnail}}" width="100%"/>
+				<img src="{{item.thumbnail}}" class="item-img" />
 			</div>
-			<p style="text-align:center"><strong>{{item.user_name}}</strong></p>
-			<p style="text-align:center">Price: {{item.price}} USD</p>
+			<p class="center"><strong>{{item.user_name}}</strong></p>
+			<p class="center">Price: {{item.price}} USD</p>
 			<hr/>
-			<img src="{{item.user_avatar}}" style="margin:0px auto" width="50px"/>
+			<img src="{{item.user_avatar}}" class="avatar"/>
 		</div>
 	</div>
 </div>

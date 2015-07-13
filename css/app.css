@@ -74,9 +74,9 @@ button.transparent{
 .form-control{
 	border-radius:0px;
 }
-input[type="text"], input[type="email"], input[type="password"]{
+input[type="text"], input[type="email"], input[type="password"], select{
 
-	padding-left:35px;
+	padding-left:35px !important;
 }
 .submit-btn{
 	width: 100%;
@@ -117,4 +117,18 @@ input[type="text"], input[type="email"], input[type="password"]{
 }
 .border-right{
 	border-right:solid 1px #000;
+}
+.thumbnail{
+	margin-bottom:20px;
+	border:solid 1px #666
+}
+.thumbnail .item-img{
+	width:100%;
+}
+.thumbnail .avatar{
+	width:50px;
+	margin:0px auto;
+}
+.center{
+	text-align:center;
 }
