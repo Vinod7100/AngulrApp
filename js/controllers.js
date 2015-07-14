@@ -420,14 +420,47 @@ phonecatControllers.controller('listPageCtrl', ['$scope', '$http', '$location',
 }]);
 
 /****** Show Single Item Page controller *****/
-phonecatControllers.controller('showPageCtrl', ['$scope', '$http', '$location','$routeParams',
-  function($scope, $http, $location, $routeParams) {
+phonecatControllers.controller('showPageCtrl', ['$scope', '$http', '$location','$routeParams', '$modal', '$log',
+  function($scope, $http, $location, $routeParams,$modal, $log) {
 	  $scope.showPage = function(pathurl){
 		console.log(pathurl);
 		$location.path(pathurl)
 	}
 	$scope.len = [];
-  
+	
+	$scope.animationsEnabled = true;
+	$scope.open = function (size) {
+
+		var modalInstance = $modal.open({
+		  animation: $scope.animationsEnabled,
+		  templateUrl: 'myModalContent.html',
+		  controller: 'ModalInstanceCtrl',
+		  size: size,
+		  resolve: {
+			items: function () {
+			  return $scope.items;
+			}
+		  }
+		});
+	
+	}
+	
+	$scope.open1 = function (size) {
+
+		var modalInstance = $modal.open({
+		  animation: $scope.animationsEnabled,
+		  templateUrl: 'myModal.html',
+		  controller: 'ModalCtrl',
+		  size: size,
+		  resolve: {
+			items: function () {
+			  return $scope.items;
+			}
+		  }
+		});
+	
+	}
+	
 	  $scope.item_id = $routeParams.id;
 	  //console.log($scope.item_id);
 	 
@@ -444,6 +477,67 @@ phonecatControllers.controller('showPageCtrl', ['$scope', '$http', '$location','
 		});
 	
 }]);
+
+/********** Show Modal*******************/
+phonecatControllers.controller('ModalInstanceCtrl', function ($http, $scope, $modalInstance) {
+	
+	if (1 == 1) { // checking username and Password if already in localstoarge
+		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
+		$scope.xxDealsPassword = localStorage.getItem("xxDealsPassword");
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/?action=login&email='+ $scope.xxDealsUsername +'&password='+ $scope.xxDealsPassword).success(function(data) {
+			$scope.userData = data;
+			$scope.loading = false;
+			if($scope.userData.status == 'verified'){
+				$scope.userID = $scope.userData.id;
+			}
+			else{
+				var pathurl = "/login";
+				console.log(pathurl);
+				$scope.loading = false;
+				$location.path(pathurl);
+			}
+		});
+	}
+	
+	$scope.ok = function () {
+    $modalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});
+
+/********** Show Modal*******************/
+phonecatControllers.controller('ModalCtrl', function ($http, $scope, $modalInstance) {
+	$scope.ok = function () {
+    $modalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+  
+  if (1 == 1) { // checking username and Password if already in localstoarge
+		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
+		$scope.xxDealsPassword = localStorage.getItem("xxDealsPassword");
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/?action=login&email='+ $scope.xxDealsUsername +'&password='+ $scope.xxDealsPassword).success(function(data) {
+			$scope.userData = data;
+			$scope.loading = false;
+			if($scope.userData.status == 'verified'){
+				$scope.userID = $scope.userData.id;
+			}
+			else{
+				var pathurl = "/login";
+				console.log(pathurl);
+				$scope.loading = false;
+				$location.path(pathurl);
+			}
+		});
+	}
+});
 
 /****** Selling Page controller *****/
 phonecatControllers.controller('sellingPageCtrl', ['$scope', '$http', '$location',

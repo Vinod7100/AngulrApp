@@ -5,7 +5,8 @@
 var phonecatApp = angular.module('phonecatApp', [
   'ngRoute',
   'ngSanitize',
-  'phonecatControllers'
+  'phonecatControllers',
+  'ui.bootstrap'
 ]);
 
 phonecatApp.config(['$routeProvider',

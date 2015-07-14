@@ -4,27 +4,18 @@
 		<h3 style="margin:0px; text-align:center">Item</h3>
 		<a href="" ng-click="showPage('/home')" class="btn-pull-right"><i class="fa fa-home"></i></a>
 	</div>
-	{{len}}
+	{{slide}}
 	<div class="col-xs-12">
 		<div class="col-xs-12 item thumbnail">
 			<div class="">
-				<!-- Carousel
-				================================================== -->
-			<div id="myCarousel" class="carousel slide" data-ride="carousel"> 
-			  <!-- Indicators -->
-			  <ol class="carousel-indicators">
-				<li data-target="#myCarousel" ng-repeat="l in len" class="{active : (l === 0)}" data-slide-to="{{l}}" ></li>
-			  </ol>
-			  <div class="carousel-inner">
-				<div ng-class="{item: true, active : (l == 0)}" ng-repeat="img in itemDetails.images"> <img src="{{img}}" alt="Slide number {{l}}" width="100%">
-				  <div class="container">
-					<div class="carousel-caption"> </div>
-				  </div>
-				</div>
-			  </div>
-			  <a class="left carousel-control"  role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control"  role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a> </div>
-			</div>
-			<!-- /.carousel --> 
+				<div>
+					<carousel interval="myInterval">
+					  <slide ng-repeat="slide in itemDetails.images" active="slide.active">
+						<img ng-src="{{slide}}" style="margin:auto; width:100%" >
+						
+					  </slide>
+					</carousel>
+				  </div> 
 			 
 			</div>
 			<p class="center"><strong>{{itemDetails.heading}}</strong></p>
@@ -34,21 +25,64 @@
 			<img src="{{itemDetails.user_avatar}}" class="avatar"/>
 			<p class="center"><strong>{{itemDetails.user_name}}</strong></p>
 		</div>
-		<div class="col-xs-12" style="margin-bottom:15px">
-			<button class="btn btn-default transparent">
-				<br/><span>Price: {{itemDetails.price}} USD</span>
-			</button>
-		</div>
-		<div class="col-xs-12" style="margin-bottom:15px">
-			<button class="btn btn-default transparent" ng-click="showPage('/addNewItem')">
-				<br/><span>Buy</span>
-			</button>
-		</div>
-		<div class="col-xs-12" style="margin-bottom:15px">
-			<button class="btn btn-default transparent" ng-click="showPage('/addNewItem')">
-				<br/><span>Ask</span>
-			</button>
-		</div>
 	</div>
+	<div class="col-xs-12" style="margin-bottom:15px">
+		<button class="btn btn-default transparent">
+			<br/><span>Price: {{itemDetails.price}} USD</span>
+		</button>
+	</div>
+	<div class="col-xs-12" style="margin-bottom:15px">
+		<button class="btn btn-default transparent" ng-click="open()">
+			<br/><span>Buy</span>
+		</button>
+	</div>
+	<div class="col-xs-12" style="margin-bottom:15px">
+		<button class="btn btn-default transparent" ng-click="open1()">
+			<br/><span>Ask</span>
+		</button>
+	</div>
+	<!------ Buy Modal ------------------->
 	
+	<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Buy</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form" ng-submit="submit()">
+				<div class="form-group">
+					<input type="text" class="form-control" name="price" ng-model="price"  required/>
+				</div>
+				<div class="form-group">
+				<input type="submit" class="btn btn-default submit-btn" name="submit" value="BUY"/>
+				</div>
+			</form>
+        </div>
+        <div class="modal-footer">
+            <!---<button class="btn btn-primary" ng-click="ok()">OK</button>--->
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+	
+	<!-----Query Modal---------------------->
+	
+	<script type="text/ng-template" id="myModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">I'm a modal 2!</h3>
+        </div>
+        <div class="modal-body">
+			<form class="form" ng-submit="submit()">
+				<div class="form-group">
+					<input type="text" class="form-control" name="price" ng-model="price"  required/>
+				</div>
+				<div class="form-group">
+				<input type="submit" class="btn btn-default submit-btn" name="submit" value="Ask Query"/>
+				</div>
+			</form>
+            Selected: <b>{{userID}}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
 </div>
