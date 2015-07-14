@@ -77,6 +77,8 @@ button.transparent{
 input[type="text"], input[type="email"], input[type="password"], select{
 
 	padding-left:35px !important;
+	height:45px !important;
+	font-size: 18px;
 }
 .submit-btn{
 	width: 100%;
@@ -84,6 +86,8 @@ input[type="text"], input[type="email"], input[type="password"], select{
 	color: #fff;
 	border-color: rgba(0,0,0,0.3);
 	border-radius: 0px;
+	height: 45px;
+	font-size: 22px;
 }
 .submit-btn:hover, .submit-btn:focus{
 	background: rgba(0,0,0,0.8);
@@ -103,6 +107,7 @@ input[type="text"], input[type="email"], input[type="password"], select{
 .form-group span i{
 	display:table-cell;
 	vertical-align:middle;
+	height: 45px;
 }
 .no-padding{
 	padding:0px;

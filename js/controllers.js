@@ -422,20 +422,33 @@ phonecatControllers.controller('listPageCtrl', ['$scope', '$http', '$location',
 /****** Show Single Item Page controller *****/
 phonecatControllers.controller('showPageCtrl', ['$scope', '$http', '$location','$routeParams',
   function($scope, $http, $location, $routeParams) {
+	  $scope.showPage = function(pathurl){
+		console.log(pathurl);
+		$location.path(pathurl)
+	}
+	$scope.len = [];
+  
 	  $scope.item_id = $routeParams.id;
-	  console.log($scope.item_id);
+	  //console.log($scope.item_id);
 	 
 		$scope.loading = true;
 		$http.get('http://parssv.com/sensemedia/app/?action=item_details&item_id='+ $scope.item_id).success(function(data) {
 			$scope.itemDetails = data;
 			$scope.loading = false;
+			var len = $scope.itemDetails.images.length;
+			for(var i = 0; i < len; i++){
+				$scope.len.push (i);
+				
+				console.log($scope.len);
+			}
 		});
 	
 }]);
+
 /****** Selling Page controller *****/
 phonecatControllers.controller('sellingPageCtrl', ['$scope', '$http', '$location',
   function($scope, $http, $location) {
-	  
+	
 	$scope.showPage = function(pathurl){
 		console.log(pathurl);
 		$location.path(pathurl)
