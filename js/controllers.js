@@ -662,7 +662,6 @@ phonecatControllers.controller('discussionPageCtrl', ['$scope', '$http', '$locat
 		$location.path(pathurl)
 	}
 	$scope.item_id = $routeParams.item_id;
-	console.log($scope.userID);
 	
 	if (1 == 1) { // checking username and Password if already in localstoarge
 		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
