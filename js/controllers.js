@@ -478,8 +478,8 @@ phonecatControllers.controller('showPageCtrl', ['$scope', '$http', '$location','
 	
 }]);
 
-/********** Show Modal*******************/
-phonecatControllers.controller('ModalInstanceCtrl', function ($http, $scope, $modalInstance) {
+/********** Show Buy Modal Controller*******************/
+phonecatControllers.controller('ModalInstanceCtrl', function ($http, $scope, $modalInstance, $routeParams) {
 	
 	if (1 == 1) { // checking username and Password if already in localstoarge
 		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
@@ -500,21 +500,26 @@ phonecatControllers.controller('ModalInstanceCtrl', function ($http, $scope, $mo
 		});
 	}
 	
-	$scope.ok = function () {
-    $modalInstance.close($scope.selected.item);
-  };
+	$scope.submit = function(){
+	$scope.loading = true;
+	$scope.type="offer";
+	$scope.item_id = $routeParams.id;
+	console.log($scope.item_id);
+	$http.get('http://parssv.com/sensemedia/app/?action=make_an_offer&user_id='+ $scope.userID +'&type='+ $scope.type + '&item_id='+ $scope.item_id + '&price='+ $scope.price).success(function(data) {
+		$scope.offer = data;
+		$scope.loading = false;
+		//$modalInstance.dismiss('cancel');
+	});
+	}
 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
 });
 
-/********** Show Modal*******************/
-phonecatControllers.controller('ModalCtrl', function ($http, $scope, $modalInstance) {
-	$scope.ok = function () {
-    $modalInstance.close($scope.selected.item);
-  };
-
+/********** Show Ask a Query Modal Controller*******************/
+phonecatControllers.controller('ModalCtrl', function ($http, $scope, $modalInstance, $routeParams) {
+	
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
@@ -536,6 +541,18 @@ phonecatControllers.controller('ModalCtrl', function ($http, $scope, $modalInsta
 				$location.path(pathurl);
 			}
 		});
+	}
+	
+	$scope.submit = function(){
+	$scope.loading = true;
+	$scope.type="message";
+	$scope.item_id = $routeParams.id;
+	//console.log($scope.item_id);
+	$http.get('http://parssv.com/sensemedia/app/?action=ask_a_query&user_id='+ $scope.userID +'&type='+ $scope.type + '&item_id='+ $scope.item_id + '&message='+ $scope.query).success(function(data) {
+		$scope.query = data;
+		$scope.loading = false;
+		//$modalInstance.dismiss('cancel');
+	});
 	}
 });
 
@@ -578,15 +595,16 @@ phonecatControllers.controller('sellingPageCtrl', ['$scope', '$http', '$location
 	}
 	
 	$scope.del = function(item_id) {
-		confirm("Do You Really Want to Delete This Item!");
+		if(confirm("Do You Really Want to Delete This Item!")){
 		$scope.item_id = item_id;
 		console.log($scope.item_id);
 		$scope.loading = true;
-		$http.get('http://parssv.com/sensemedia/app/?action=delete_item&item_id='+ $scope.item_id).success(function(data) {
+		$http.get('http://parssv.com/sensemedia/app/?action=delete_item&item_id='+ $scope.item_id +'&user_id='+ $scope.userID).success(function(data) {
 			$scope.userDetails = data;
 			$scope.loading = false;
 			window.location.reload();
 		});
+	}
 	};
 }]);
 
@@ -628,8 +646,61 @@ phonecatControllers.controller('buyingPageCtrl', ['$scope', '$http', '$location'
 		$scope.loading = false;
 	});
 	}
+	
+	$scope.viewDiscussion = function(item_id) {
+		var pathurl = "/discussion";
+		console.log(pathurl);
+		$location.path(pathurl).search('item_id', item_id);
+	};
 }]);
 
+/****** Show Discussion Page controller *****/
+phonecatControllers.controller('discussionPageCtrl', ['$scope', '$http', '$location','$routeParams', '$modal', '$log',
+  function($scope, $http, $location, $routeParams,$modal, $log) {
+	  $scope.showPage = function(pathurl){
+		console.log(pathurl);
+		$location.path(pathurl)
+	}
+	$scope.item_id = $routeParams.item_id;
+	console.log($scope.userID);
+	
+	if (1 == 1) { // checking username and Password if already in localstoarge
+		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
+		$scope.xxDealsPassword = localStorage.getItem("xxDealsPassword");
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/?action=login&email='+ $scope.xxDealsUsername +'&password='+ $scope.xxDealsPassword).success(function(data) {
+			$scope.userData = data;
+			$scope.loading = false;
+			if($scope.userData.status == 'verified'){
+				$scope.userID = $scope.userData.id;
+				console.log($scope.userID);
+				
+				$http.get('http://parssv.com/sensemedia/app/?action=view_discussion&item_id='+ $scope.item_id +'&user_id='+ $scope.userID).success(function(data) {
+				$scope.messages = data;
+				});
+			}
+			else{
+				var pathurl = "/login";
+				console.log(pathurl);
+				$scope.loading = false;
+				$location.path(pathurl);
+			}
+		});
+	}
+	
+	
+	
+	$scope.submit = function(){
+	$scope.loading = true;
+	$scope.type="message";
+	console.log($scope.type);
+	$http.get('http://parssv.com/sensemedia/app/?action=ask_a_query&user_id='+ $scope.userID +'&type='+ $scope.type + '&item_id='+ $scope.item_id + '&message='+ $scope.query).success(function(data) {
+		$scope.query = data;
+		$scope.loading = false;
+		window.location.reload();
+	});
+	}
+}]);	
 /****** Watching Page controller *****/
 phonecatControllers.controller('watchingPageCtrl', ['$scope', '$http', '$location',
   function($scope, $http, $location) {

@@ -84,6 +84,10 @@ phonecatApp.config(['$routeProvider',
         templateUrl: 'partials/show_single_item.html',
 		controller: 'showPageCtrl'
       }).
+	  when('/discussion', {
+        templateUrl: 'partials/discussion.html',
+		controller: 'discussionPageCtrl'
+      }).
       otherwise({
         redirectTo: '/home'
       });

@@ -1,4 +1,5 @@
 <div class="col-xs-12 page" style="background:#ffcc00">
+	<loading></loading>
 	<div class="page-header">
 		<a href="" ng-click="showPage('/offers')" class="btn-pull-left"><i class="fa fa-arrow-circle-left"></i></a>
 		<h3 style="margin:0px; text-align:center">Buying</h3>
@@ -14,6 +15,7 @@
 			<hr/>
 			<img src="{{b.user_avatar}}" class="avatar"/>
 			<p class="center"><strong>{{b.user_name}}</strong></p>
+			<input type="button" name="submit" ng-click="viewDiscussion(b.id)" class="btn btn-default submit-btn" value="View Disscussion">
 		</div>
 	</div>
 	
