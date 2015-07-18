@@ -84,9 +84,21 @@ phonecatApp.config(['$routeProvider',
         templateUrl: 'partials/show_single_item.html',
 		controller: 'showPageCtrl'
       }).
+	  when('/show_item_detail', {
+        templateUrl: 'partials/show_item_detail.html',
+		controller: 'showItemDetailPageCtrl'
+      }).
 	  when('/discussion', {
         templateUrl: 'partials/discussion.html',
 		controller: 'discussionPageCtrl'
+      }).
+	  when('/discussionUsersList', {
+        templateUrl: 'partials/discussionUsersList.html',
+		controller: 'discussionUsersListPageCtrl'
+      }).
+	  when('/reply', {
+        templateUrl: 'partials/reply.html',
+		controller: 'replyPageCtrl'
       }).
       otherwise({
         redirectTo: '/home'
