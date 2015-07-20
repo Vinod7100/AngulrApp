@@ -1,4 +1,5 @@
 <div class="col-xs-12 page" style="background:#ffcc00">
+	<loading></loading>
 	<div class="page-header">
 		<a href="" ng-click="showPage('/profile')" class="btn-pull-left"><i class="fa fa-arrow-circle-left"></i></a>
 		<h3 style="margin:0px; text-align:center">Add New Item</h3>
@@ -8,7 +9,7 @@
 		<form class="form" ng-submit="submit()" enctype="multipart/form-data">
 			<div class="form-group">
 				<span><i>C</i></span>
-				<select class="form-control">
+				<select class="form-control" ng-model="cat_id">
 					<option disabled="disabled">Select Category</option>
 					<option ng-repeat="c in category" value="{{c.id}}">{{c.name}}</option>
 				</select>
@@ -26,12 +27,65 @@
 				<input type="text" class="form-control" name="price" ng-model="price" placeholder="Enter Price" required/>
 			</div>
 			<div class="form-group">
-				<input type="file" class="form-control" name="price" ng-model="price" placeholder="Enter Price" required/>
+				<input type="file" nv-file-select="" uploader="uploader"  />
 			</div>
+			 <!--<h3>Upload queue</h3>
+                    <p>Queue length: {{ uploader.queue.length }}</p>--->
+
+                    <!---<table class="table">
+                        <thead>
+                            <tr>
+                                <th width="50%">Name</th>
+                                <th ng-show="uploader.isHTML5">Progress</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>-->
+                            <div ng-repeat="item in uploader.queue">
+                                <div class="col-xs-12">
+									<strong>Name: {{ item.file.name }}</strong>
+									<span>
+										<span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok" style="color:green;"></i></span>
+										<span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle" style="color:red;"></i></span>
+										<span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+									</span>
+								</div>
+                                <div class="col-xs-12" ng-show="uploader.isHTML5">
+                                    <div class="progress" style="margin-bottom: 0;">
+                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-xs-12" nowrap style="padding-top:10px; padding-bottom:10px;">
+                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                        <span class="glyphicon glyphicon-upload"></span> Upload
+                                    </button>
+									<button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                        <span class="glyphicon glyphicon-trash"></span> Remove
+                                    </button>
+                                </div>
+                            </div>
+                       <!--- </tbody>
+                    </table>--->
+
+     <div>
+                       
+                   
 			<div class="form-group">
 				<input type="submit" class="btn btn-default submit-btn" name="submit" value="Save Changes"/>
 			</div>
 		</form>
 	</div>
-	
+	<div class="clearfix"></div>
+		<!--{{userDetails}}-->
+		<div ng-if="userDetails.error == 'true'" class="alert alert-danger">
+			{{itemDetails.message}}
+		</div>
+		<div ng-if="userDetails.success == 'true'" class="alert alert-success">
+			{{itemDetails.message}}
+		</div>
 </div>

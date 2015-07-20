@@ -276,13 +276,105 @@ phonecatControllers.controller('privacyPageCtrl', ['$scope', '$http', '$location
 }]);
 
 /****** Add New Item Page controller *****/
-phonecatControllers.controller('addNewItemPageCtrl', ['$scope', '$http', '$location',
-  function($scope, $http, $location) {
+phonecatControllers.controller('addNewItemPageCtrl', ['$scope', '$http', '$location', 'FileUploader',
+  function($scope, $http, $location, FileUploader) {
 	  
 	$scope.showPage = function(pathurl){
 		console.log(pathurl);
 		$location.path(pathurl)
 	}
+	
+	if (1 == 1) {
+		$scope.xxDealsUsername = localStorage.getItem("xxDealsUsername");
+		$scope.xxDealsPassword = localStorage.getItem("xxDealsPassword");
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/?action=login&email='+ $scope.xxDealsUsername +'&password='+ $scope.xxDealsPassword).success(function(data) {
+			$scope.userData = data;
+			$scope.loading = false;
+			if($scope.userData.status == 'verified'){
+				$scope.name = $scope.userData.name;
+				$scope.location = $scope.userData.location;
+				$scope.newsletter = $scope.userData.newsletter;
+				$scope.userID = $scope.userData.id;
+			}
+			else{
+				var pathurl = "/login";
+				console.log(pathurl);
+				$scope.loading = false;
+				$location.path(pathurl);
+			}
+		});
+	}
+	
+	$scope.submit = function() {
+		console.log($scope.cat_id);
+		console.log($scope.price);
+		console.log($scope.desc);
+		console.log($scope.userID);
+		console.log($scope.path);
+		$scope.loading = true;
+		$http.get('http://parssv.com/sensemedia/app/index.php?action=insert_item&path='+ $scope.path +'&price='+ $scope.price +'&category_id='+ $scope.cat_id +'&heading='+ $scope.heading +'&text='+$scope.desc +'&user_id='+$scope.userID).success(function(data) {
+			$scope.itemDetails = data;
+			$scope.loading = false;
+		});
+	};
+	    
+	 var uploader = $scope.uploader = new FileUploader({
+            url: 'http://parssv.com/sensemedia/app/index.php?action=add_new_item'
+        });
+		
+	uploader.filters.push({
+            name: 'customFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                return this.queue.length < 10;
+            }
+        });
+
+		$scope.path = [];
+        // CALLBACKS
+
+        uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+            console.info('onWhenAddingFileFailed', item, filter, options);
+        };
+        uploader.onAfterAddingFile = function(fileItem) {
+            console.info('onAfterAddingFile', fileItem);
+        };
+        uploader.onAfterAddingAll = function(addedFileItems) {
+            console.info('onAfterAddingAll', addedFileItems);
+        };
+        uploader.onBeforeUploadItem = function(item) {
+            console.info('onBeforeUploadItem', item);
+        };
+        uploader.onProgressItem = function(fileItem, progress) {
+            console.info('onProgressItem', fileItem, progress);
+        };
+        uploader.onProgressAll = function(progress) {
+            console.info('onProgressAll', progress);
+        };
+        uploader.onSuccessItem = function(fileItem, response, status, headers) {
+            console.info('onSuccessItem', fileItem, response, status, headers);
+			console.log(fileItem);
+
+        };
+        uploader.onErrorItem = function(fileItem, response, status, headers) {
+            console.info('onErrorItem', fileItem, response, status, headers);
+        };
+        uploader.onCancelItem = function(fileItem, response, status, headers) {
+            console.info('onCancelItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteItem = function(fileItem, response, status, headers) {
+            console.info('onCompleteItem', fileItem, response, status, headers);
+			
+			var myEl = angular.element('#item-images');
+			$scope.path.push(response.path);
+			//console.log("File Path:"+ $scope.path[]);
+			//myEl.append("<input type='text' name='abc' ng-model='path' value=''/>");
+        };
+        uploader.onCompleteAll = function() {
+            console.info('onCompleteAll');
+        };
+
+        console.info('uploader', uploader);
 	
 	$scope.loading = true;
 	$http.get('http://parssv.com/sensemedia/app/?action=list_categories').success(function(data) {
@@ -440,7 +532,7 @@ phonecatControllers.controller('listPageCtrl', ['$scope', '$http', '$location',
 }]);
 
 /****** Show Single Item Page controller *****/
-phonecatControllers.controller('showPageCtrl', ['$scope', '$http', '$location','$routeParams', '$modal', '$log',
+phonecatControllers.controller('showPageCtrl', ['$scope', '$http', '$location','$routeParams', '$modal', '$log', 
   function($scope, $http, $location, $routeParams,$modal, $log) {
 	  $scope.showPage = function(pathurl){
 		console.log(pathurl);

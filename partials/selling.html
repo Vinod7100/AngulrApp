@@ -8,12 +8,12 @@
 	<div class="col-xs-12">
 		<div class="col-xs-12 item thumbnail" ng-repeat="s in selling">
 			<div class="">
-				<img src="{{s.thumbnail}}" class="item-img"/>
+				<img ng-src="{{s.thumbnail}}" class="item-img"/>
 			</div>
 			<p class="center"><strong>{{s.name}}</strong></p>
 			<p class="center">Price: {{s.price}} USD</p>
 			<hr/>
-			<img src="{{s.user_avatar}}" class="avatar"/>
+			<img ng-src="{{s.user_avatar}}" class="avatar"/>
 			<p class="center"><strong>{{s.user_name}}</strong></p>
 			<input type="submit" name="submit" ng-click="del(s.id)" class="btn btn-default submit-btn" value="Delete" style="margin-bottom:5px;">
 			<input type="submit" name="submit" ng-click="discussionList(s.id)" class="btn btn-default submit-btn" value="Discussion">

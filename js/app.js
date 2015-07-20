@@ -6,7 +6,8 @@ var phonecatApp = angular.module('phonecatApp', [
   'ngRoute',
   'ngSanitize',
   'phonecatControllers',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'angularFileUpload'
 ]);
 
 phonecatApp.config(['$routeProvider',
