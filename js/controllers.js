@@ -395,8 +395,8 @@ phonecatControllers.controller('offersPageCtrl', ['$scope', '$http', '$location'
 }]);
 
 /****** Settings Page controller *****/
-phonecatControllers.controller('settingsPageCtrl', ['$scope', '$http', '$location',
-  function($scope, $http, $location) {
+phonecatControllers.controller('settingsPageCtrl', ['$scope', '$http', '$location', 'FileUploader',
+  function($scope, $http, $location, FileUploader) {
 	  
 	$scope.showPage = function(pathurl){
 		console.log(pathurl);
@@ -430,12 +430,72 @@ phonecatControllers.controller('settingsPageCtrl', ['$scope', '$http', '$locatio
 		console.log($scope.location);
 		console.log($scope.newsletter);
 		console.log($scope.user_id);
+		console.log($scope.path);
 		$scope.loading = true;
-		$http.get('http://parssv.com/sensemedia/app/?action=update_settings&name='+ $scope.name +'&location='+ $scope.location +'&newsletter='+$scope.newsletter +'&user_id='+$scope.user_id).success(function(data) {
+		$http.get('http://parssv.com/sensemedia/app/?action=update_settings&path='+ $scope.path +'&name='+ $scope.name +'&location='+ $scope.location +'&newsletter='+$scope.newsletter +'&user_id='+$scope.user_id).success(function(data) {
 			$scope.userDetails = data;
 			$scope.loading = false;
 		});
 	};
+	
+	var uploader = $scope.uploader = new FileUploader({
+            url: 'http://parssv.com/sensemedia/app/index.php?action=add_new_item'
+        });
+		
+	uploader.filters.push({
+            name: 'customFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                return this.queue.length < 10;
+            }
+        });
+
+		$scope.path = [];
+        // CALLBACKS
+
+        uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+            console.info('onWhenAddingFileFailed', item, filter, options);
+        };
+        uploader.onAfterAddingFile = function(fileItem) {
+            console.info('onAfterAddingFile', fileItem);
+			$scope.isProcessing = true;
+        };
+        uploader.onAfterAddingAll = function(addedFileItems) {
+            console.info('onAfterAddingAll', addedFileItems);
+        };
+        uploader.onBeforeUploadItem = function(item) {
+            console.info('onBeforeUploadItem', item);
+        };
+        uploader.onProgressItem = function(fileItem, progress) {
+            console.info('onProgressItem', fileItem, progress);
+        };
+        uploader.onProgressAll = function(progress) {
+            console.info('onProgressAll', progress);
+        };
+        uploader.onSuccessItem = function(fileItem, response, status, headers) {
+            console.info('onSuccessItem', fileItem, response, status, headers);
+			console.log(fileItem);
+
+        };
+        uploader.onErrorItem = function(fileItem, response, status, headers) {
+            console.info('onErrorItem', fileItem, response, status, headers);
+        };
+        uploader.onCancelItem = function(fileItem, response, status, headers) {
+            console.info('onCancelItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteItem = function(fileItem, response, status, headers) {
+            console.info('onCompleteItem', fileItem, response, status, headers);
+			
+			var myEl = angular.element('#item-images');
+			$scope.path.push(response.path);
+			//console.log("File Path:"+ $scope.path[]);
+			//myEl.append("<input type='text' name='abc' ng-model='path' value=''/>");
+        };
+        uploader.onCompleteAll = function() {
+            console.info('onCompleteAll');
+			
+        };
+
+        console.info('uploader', uploader);
 	
 }]);
 
@@ -533,7 +593,23 @@ phonecatControllers.controller('listPageCtrl', ['$scope', '$http', '$location',
 
 /****** Show Single Item Page controller *****/
 phonecatControllers.controller('showPageCtrl', ['$scope', '$http', '$location','$routeParams', '$modal', '$log', 
-  function($scope, $http, $location, $routeParams,$modal, $log) {
+  function($scope, $http, $location, $routeParams,$modal, $log) { 
+  $scope.slides = [];$scope.sliddes = [];
+  
+  
+	  /*$scope.slides = [
+    {
+      image: 'http://parssv.com/sensemedia/includes/uploader/files/21278_16-628x250%20%282%29.jpg'
+    },
+    {
+      image: 'http://parssv.com/sensemedia/includes/uploader/files/1437456483Desert.jpg'
+    },
+    {
+      image: 'http://parssv.com/sensemedia/includes/uploader/files/Cheers_Mobile_C21__Black_900X900_01_0%20%285%29.jpg'
+    }
+  ];*/
+
+	  
 	  $scope.showPage = function(pathurl){
 		console.log(pathurl);
 		$location.path(pathurl)
@@ -581,13 +657,21 @@ phonecatControllers.controller('showPageCtrl', ['$scope', '$http', '$location','
 			$scope.itemDetails = data;
 			$scope.loading = false;
 			var len = $scope.itemDetails.images.length;
+			//$scope.slides = $scope.itemDetails.images;
+			console.log($scope.itemDetails.images);
+			$scope.sliddes = $scope.itemDetails.images;
+			$scope.length = $scope.itemDetails.images.length;
+
 			for(var i = 0; i < len; i++){
-				$scope.len.push (i);
+				$scope.slides.push ({'image': $scope.sliddes[i]});
 				
 				console.log($scope.len);
 			}
+			
 		});
-	
+		
+		
+    
 }]);
 
 /********** Show Buy Modal Controller*******************/

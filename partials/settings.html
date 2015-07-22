@@ -26,6 +26,36 @@
 				<input type="hidden" name="user_id" ng-model="user_id">
 			</div>
 			<div class="form-group">
+				<input type="file" nv-file-select="" uploader="uploader" ng-disabled="isProcessing" accept ="image/*"/>
+			</div>
+			<div ng-repeat="item in uploader.queue">
+                                <div class="col-xs-12">
+									<strong>Name: {{ item.file.name }}</strong>
+									<span>
+										<span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok" style="color:green;"></i></span>
+										<span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle" style="color:red;"></i></span>
+										<span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+									</span>
+								</div>
+                                <div class="col-xs-12" ng-show="uploader.isHTML5">
+                                    <div class="progress" style="margin-bottom: 0;">
+                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-xs-12" nowrap style="padding-top:10px; padding-bottom:10px;">
+                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                        <span class="glyphicon glyphicon-upload"></span> Upload
+                                    </button>
+									<button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                        <span class="glyphicon glyphicon-trash"></span> Remove
+                                    </button>
+                                </div>
+                            </div>
+			<div class="form-group">
 				<input type="submit" class="btn btn-default submit-btn" name="submit" value="Save Changes"/>
 			</div>
 		</form>

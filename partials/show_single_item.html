@@ -4,25 +4,23 @@
 		<h3 style="margin:0px; text-align:center">Item</h3>
 		<a href="" ng-click="showPage('/home')" class="btn-pull-right"><i class="fa fa-home"></i></a>
 	</div>
-	{{slide}}
+
 	<div class="col-xs-12">
 		<div class="col-xs-12 item thumbnail">
 			<div class="">
 				<div>
 					<carousel interval="myInterval">
-					  <slide ng-repeat="slide in itemDetails.images" active="slide.active">
-						<img ng-src="{{slide}}" style="margin:auto; width:100%" >
-						
-					  </slide>
+						<slide ng-repeat="slide in slides" active="slide.active">
+							<img ng-src="{{slide.image}}" style="margin:0px; width:100%;">
+						</slide>
 					</carousel>
-				  </div> 
-			 
+				</div>
 			</div>
 			<p class="center"><strong>{{itemDetails.heading}}</strong></p>
 			<p>{{itemDetails.description}}</p>
 			<p class="center"></p>
 			<hr/>
-			<img src="{{itemDetails.user_avatar}}" class="avatar"/>
+			<img ng-src="{{itemDetails.user_avatar}}" class="avatar"/>
 			<p class="center"><strong>{{itemDetails.user_name}}</strong></p>
 		</div>
 	</div>
@@ -50,7 +48,7 @@
             <h3 class="modal-title center">Really Want to buy? Make an offer than.</h3>
         </div>
         <div class="modal-body">
-			<form class="form" ng-submit="submit()">
+			<form class="form no-padding-input" ng-submit="submit()">
 				<div class="form-group">
 					<input type="number" class="form-control" name="price" ng-model="price" placeholder="Enter your Offer" required/>
 				</div>
@@ -84,8 +82,8 @@
         </div>
         <div class="modal-body">
 			<form class="form" ng-submit="submit()">
-				<div class="form-group">
-					<input type="text" class="form-control" name="query" ng-model="query" placeholder="Enter your query..." required/>
+				<div class="form-group no-padding-input">
+					<input type="text" class="form-control ask-input" name="query" ng-model="query" placeholder="Enter your query..." required/>
 				</div>
 				<div class="form-group">
 					<input type="submit" class="btn btn-default submit-btn" name="submit" value="Ask"/>

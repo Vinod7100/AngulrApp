@@ -76,11 +76,21 @@ button.transparent{
 }
 input[type="text"], input[type="email"], input[type="password"], select{
 
-	padding-left:50px !important;
+	padding-left:50px ;
 	height:45px !important;
 	font-size: 18px !important;
 }
 textarea.form-control{font-size: 18px !important;}
+.no-padding-input nput[type="text"], .no-padding-input select, .no-padding-input  input[type="email"], .no-padding-input  input[type="number"]{
+padding-left:8px !important;
+	height:45px !important;
+	font-size: 18px !important;
+}
+.ask-input{
+padding-left:8px !important;
+	height:45px !important;
+	font-size: 18px !important;
+	}
 .submit-btn{
 	width: 100%;
 	background: rgba(0,0,0,0.5);
